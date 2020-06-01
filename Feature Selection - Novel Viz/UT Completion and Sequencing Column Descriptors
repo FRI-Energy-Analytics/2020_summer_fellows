@@ -13,7 +13,7 @@ Data variable Descriptions:
 		
 		Formation name/identification code
 		
-	Lateral Length ([R] [Units?] )
+	Lateral Length ([R] feet )
 		Length from the point at wich a wellbore enters the target zone
 		to the terminus point of the wellbore
 		
@@ -44,15 +44,17 @@ Data variable Descriptions:
 		Total ammount of proppant used in pounds
 		
 	Fluid ([R] bbls)
-		[Barels of water pumped in ??]
+		Water and chemicals being pumpped in 
 		
 	Date Fracd (M/D/Y)
 		Day fracing began
 		
 	Best1 Mo BOPD ([R] bbls/day)
-		??
+		Best production in the first month
+
 	Best3 Mo BOPD ([R] bbls/day)
-		??
+		Best Production in the thrird month
+
 	Best6 Mo BOPD ([R] bbls/day)
 		??
 	Best9 Mo BOPD ([R] bbls/day)
@@ -90,7 +92,8 @@ Data variable Descriptions:
 		The type of fracing fluid used
 		
 	SPACING_CAPPED 
-		?
+		What the acerage size is for that well 
+		smaller is closer bigger is further wells/acr
 		
-	12 month Cum Prod ([R] million barrels ?)
+	12 month Cum Prod ([R] Millions of barrels)
 		Total ammount of oil produced in 12 months
