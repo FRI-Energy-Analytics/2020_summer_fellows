@@ -32,6 +32,9 @@ python3 pix2pix.py —dataset_name <Dataset>
 # saved_models/ saves generator and discriminator
 ```
 
+### Datasets used
+  * Collected_Images/Split_Images
+
 ## Sprint 1 Results
 
 ### Satellite to Geology
