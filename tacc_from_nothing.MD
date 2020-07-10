@@ -35,7 +35,7 @@ and reload it using
     $ source ~/.bashrc
 Now to install PyTorch, run
 
-    $ pip3 install torch torchvision --user
+    $ pip3 install torch==1.5.1+cu101 torchvision==0.6.1+cu101 -f https://download.pytorch.org/whl/torch_stable.html --user
 We now have everything that we need to create jobs using PyTorch.
 
 ### Starting an interactive session
