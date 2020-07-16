@@ -3,7 +3,9 @@ import gzip
 import pandas as pd
 import lasio
 from .predict_from_model import make_prediction
+import pkg_resources
 
+DATA_PATH = pkg_resources.resource_filename(__name__, 'data/')
 
 class Node:
     def __init__(self, key):
@@ -19,7 +21,7 @@ def make_tree():
     """
     root = Node(None)
     df = (
-        pd.read_csv("data/original_lowered.csv")
+        pd.read_csv(DATA_PATH+"original_lowered.csv")
         .drop("Unnamed: 0", 1)
         .reset_index(drop=True)
     )
@@ -229,7 +231,7 @@ class Alias:
         Find exact matches of mnemonics in mnemonic dictionary
         """
         df = (
-            pd.read_csv("data/comprehensive_dictionary.csv")
+            pd.read_csv(DATA_PATH+"comprehensive_dictionary.csv")
             .drop("Unnamed: 0", 1)
             .reset_index(drop=True)
         )
@@ -277,7 +279,7 @@ class Alias:
         :return: compressed file of summaries used to generate labels
         Build input file for pointer generator
         """
-        data_path = "data/"
+        data_path = DATA_PATH
         test_out = gzip.open(os.path.join(data_path, "input.gz"), "wt")
         for i in range(len(df)):
             fout = test_out

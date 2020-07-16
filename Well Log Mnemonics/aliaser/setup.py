@@ -18,7 +18,7 @@ DESCRIPTION = (
 )
 KEYWORDS = "geophysics, geology, reservoir engineering"
 LONG_DESCRIPTION = "this is the long description"
-VERSION = '0.0'
+VERSION = '0.0.1'
 CLASSIFIERS = [
     "Intended Audience :: Science/Research",
     "Intended Audience :: Developers",
@@ -34,7 +34,8 @@ CLASSIFIERS = [
 PLATFORMS = "Any"
 PACKAGES = find_packages(exclude=["doc"])
 SCRIPTS = []
-PACKAGE_DATA = {}
+PACKAGE_DATA = {"aliaser.data": ["data/*.csv", "data/*.gz", "data/*.las"]}
+
 with open("requirements.txt") as f:
     INSTALL_REQUIRES = f.readlines()
 PYTHON_REQUIRES = ">=3.6"
@@ -56,6 +57,7 @@ if __name__ == "__main__":
         scripts=SCRIPTS,
         packages=PACKAGES,
         package_data=PACKAGE_DATA,
+        include_package_data=True,
         classifiers=CLASSIFIERS,
         keywords=KEYWORDS,
         install_requires=INSTALL_REQUIRES,
