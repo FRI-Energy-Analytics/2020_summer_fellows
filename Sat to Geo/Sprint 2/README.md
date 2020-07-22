@@ -1,4 +1,4 @@
-<p align="center"><img src="Sprint 2/assets/intro.png" width="900"\></p>
+<p align="center"><img src="assets/intro.png" width="900"\></p>
 
 # Sat to Geo Sprint 2
 
@@ -45,13 +45,13 @@ To combat this, we decided to change the color bounds when looking at urban area
 #### Results
 
 ##### Desert/Mountain/Urban Unaltered
-<p align="left"><img src="Sprint 2/assets/reg_unalt.png" width="480"\></p>
+<p align="left"><img src="assets/reg_unalt.png" width="480"\></p>
 
 ##### Desert/Mountain/Urban Geology Band
-<p align="left"><img src="Sprint 2/assets/reg_geo.png" width="480"\></p>
+<p align="left"><img src="assets/reg_geo.png" width="480"\></p>
 
 ##### Desert/Mountain/Urban Vegetation Index
-<p align="left"><img src="Sprint 2/assets/reg_veg.png" width="480"\></p>
+<p align="left"><img src="assets/reg_veg.png" width="480"\></p>
 
 #### Analysis
 It looks like our model works very well for drawing border lines for desert and in mountain areas but still needs work to predict urban areas as there are no noticeable features that indicate where a border should go. 
@@ -68,10 +68,10 @@ A program first generated an image of a grayscale 2D Perlin Noise, then overlaye
 #### Results
 
 ##### Perlin Image Generation
-<p align="left"><img src="Sprint 2/assets/perlin_1.png" width="480"\></p>
+<p align="left"><img src="assets/perlin_1.png" width="480"\></p>
 
 ##### Perlin Shift Overlay Removal
-<p align="left"><img src="Sprint 2/assets/perlin_out.png" width="480"\></p>
+<p align="left"><img src="assets/perlin_out.png" width="480"\></p>
 
 #### Analysis
 The GAN was very successful in recognizing these sorts of subpatterns, and had a G-loss of under .05 by the 25th epoch. 
