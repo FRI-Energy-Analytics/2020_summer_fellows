@@ -6,6 +6,7 @@ from utils import Vocab, OOVDict, Batch, format_tokens, Dataset
 from model import DEVICE, Seq2SeqOutput, Seq2Seq
 from params import Params
 
+
 def decode_batch_output(
     decoded_tokens, vocab: Vocab, oov_dict: OOVDict
 ) -> List[List[str]]:
@@ -118,7 +119,7 @@ def eval_bs_batch(
         )
     if best_only:
         to_decode = [hypotheses[0].tokens]
-        probability = math.log(-hypotheses[0].avg_log_prob,10)
+        probability = math.log(-hypotheses[0].avg_log_prob, 10)
     else:
         to_decode = [h.tokens for h in hypotheses]
     decoded_batch = decode_batch_output(to_decode, vocab, batch.oov_dict)
@@ -174,14 +175,20 @@ def make_prediction(test_path):
   :return: dictionary of mnemonic and label
   Make predictions using pointer generator
   """
-    parameters = Params()
+    p = Params()
+    dataset = Dataset(
+        p.data_path,
+        max_src_len=p.max_src_len,
+        max_tgt_len=p.max_tgt_len,
+        truncate_src=p.truncate_src,
+        truncate_tgt=p.truncate_tgt,
+    )
+    v = dataset.build_vocab(p.vocab_size, embed_file=p.embed_file)
+    m = Seq2Seq(v, p)
+    m.load_state_dict(torch.load("state_dict.pth"))
+    m.encoder.gru.flatten_parameters()
+    m.decoder.gru.flatten_parameters()
 
-    model = torch.load("weights.pt")
-
-    model.encoder.gru.flatten_parameters()
-    model.decoder.gru.flatten_parameters()
-
-    vocabulary = model.vocab
-    data_testset = Dataset(test_path)
-    output, prob_output = eval_bs(data_testset, vocabulary, model, parameters)
-    return output, prob_output
+    d = Dataset(test_path)
+    output = eval_bs(d, v, m, p)
+    return output

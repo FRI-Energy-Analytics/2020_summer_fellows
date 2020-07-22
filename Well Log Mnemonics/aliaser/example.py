@@ -4,7 +4,7 @@ import lasio
 import pandas as pd
 
 path = "data/testcase3.las" #/Users/destiny/EnergyAnalytics/Software/LAS_files/1/43013341710000_MAIN.las"#"/Users/destiny/EnergyAnalytics/Software/100Wells/3725634A.las"#"/Users/destiny/EnergyAnalytics/Software/LAS_files/1/43013341710000_MAIN.las"
-a = Alias()
+a = Alias(prob_cutoff=0)
 parsed, not_found = a.parse(path)
 las = lasio.read(path)
 l, l2, l3 = [], [], []

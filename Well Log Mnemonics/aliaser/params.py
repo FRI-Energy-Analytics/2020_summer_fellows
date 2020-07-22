@@ -40,7 +40,7 @@ class Params:
     n_batches: int = 50  # how many batches per epoch CHANGED 1000
     val_batch_size: int = 32
     n_val_batches: int = 10  # how many validation batches per epoch CHANGED 100
-    n_epochs: int = 5  # CHANGED 75
+    n_epochs: int = 10  # CHANGED 75
     pack_seq: bool = True  # use packed sequence to skip PAD inputs?
     forcing_ratio: float = 0.75  # initial percentage of using teacher forcing
     partial_forcing: bool = True  # in a seq, can some steps be teacher forced and some not?
