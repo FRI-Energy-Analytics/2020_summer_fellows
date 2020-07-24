@@ -190,5 +190,5 @@ def make_prediction(test_path):
     m.decoder.gru.flatten_parameters()
 
     d = Dataset(test_path)
-    output = eval_bs(d, v, m, p)
-    return output
+    output, prob_output = eval_bs(d, v, m, p)
+    return output, prob_output

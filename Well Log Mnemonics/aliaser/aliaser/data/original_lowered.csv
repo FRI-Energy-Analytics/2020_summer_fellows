@@ -414,62 +414,62 @@
 412,hndp,high resolution enhanced resolution density porosity,cubic meter per cubic meter,density porosity
 413,hndp,high resolution enhanced resolution density porosity,pu,density porosity
 414,hndp,high resolution enhanced resolution density porosity,porosity unit,density porosity
-415,hrho,high resolution bulk density,g/cm3,density porosity
-416,hrho,high resolution bulk density,gram per cubic centimeter,density porosity
-417,hrho,high resolution bulk density,kg/m3,density porosity
-418,hrho,high resolution bulk density,kilogram per cubic meter,density porosity
-419,hrom,high resolution corrected bulk density,g/cm3,density porosity
-420,hrom,high resolution corrected bulk density,gram per cubic centimeter,density porosity
-421,hrom,high resolution corrected bulk density,kg/m3,density porosity
-422,hrom,high resolution corrected bulk density,kilogram per cubic meter,density porosity
-423,nrhb,enhanced resolution bulk density,g/cm3,density porosity
-424,nrhb,enhanced resolution bulk density,gram per cubic centimeter,density porosity
-425,nrhb,enhanced resolution bulk density,kg/m3,density porosity
-426,nrhb,enhanced resolution bulk density,kilogram per cubic meter,density porosity
-427,nrho,"bulk density, enhanced vertical resolution",g/cm3,density porosity
-428,nrho,"bulk density, enhanced vertical resolution",gram per cubic centimeter,density porosity
-429,nrho,"bulk density, enhanced vertical resolution",kg/m3,density porosity
-430,nrho,"bulk density, enhanced vertical resolution",kilogram per cubic meter,density porosity
+415,hrho,high resolution bulk density,g/cm3,bulk density
+416,hrho,high resolution bulk density,gram per cubic centimeter,bulk density
+417,hrho,high resolution bulk density,kg/m3,bulk density
+418,hrho,high resolution bulk density,kilogram per cubic meter,bulk density
+419,hrom,high resolution corrected bulk density,g/cm3,bulk density
+420,hrom,high resolution corrected bulk density,gram per cubic centimeter,bulk density
+421,hrom,high resolution corrected bulk density,kg/m3,bulk density
+422,hrom,high resolution corrected bulk density,kilogram per cubic meter,bulk density
+423,nrhb,enhanced resolution bulk density,g/cm3,bulk density
+424,nrhb,enhanced resolution bulk density,gram per cubic centimeter,bulk density
+425,nrhb,enhanced resolution bulk density,kg/m3,bulk density
+426,nrhb,enhanced resolution bulk density,kilogram per cubic meter,bulk density
+427,nrho,"bulk density, enhanced vertical resolution",g/cm3,bulk density
+428,nrho,"bulk density, enhanced vertical resolution",gram per cubic centimeter,bulk density
+429,nrho,"bulk density, enhanced vertical resolution",kg/m3,bulk density
+430,nrho,"bulk density, enhanced vertical resolution",kilogram per cubic meter,bulk density
 431,rho8,high resolution formation density,g/cm3,density porosity
 432,rho8,high resolution formation density,gram per cubic centimeter,density porosity
 433,rho8,high resolution formation density,kg/m3,density porosity
 434,rho8,high resolution formation density,kilogram per cubic meter,density porosity
-435,rhob,bulk density,g/cm3,density porosity
-436,rhob,bulk density,gram per cubic centimeter,density porosity
-437,rhob,bulk density,kg/m3,density porosity
-438,rhob,bulk density,kilogram per cubic meter,density porosity
-439,rhob_sldt,sldt/qldt bulk density,g/cm3,density porosity
-440,rhob_sldt,sldt/qldt bulk density,gram per cubic centimeter,density porosity
-441,rhob_sldt,sldt/qldt bulk density,kg/m3,density porosity
-442,rhob_sldt,sldt/qldt bulk density,kilogram per cubic meter,density porosity
+435,rhob,bulk density,g/cm3,bulk density
+436,rhob,bulk density,gram per cubic centimeter,bulk density
+437,rhob,bulk density,kg/m3,bulk density
+438,rhob,bulk density,kilogram per cubic meter,bulk density
+439,rhob_sldt,sldt/qldt bulk density,g/cm3,bulk density
+440,rhob_sldt,sldt/qldt bulk density,gram per cubic centimeter,bulk density
+441,rhob_sldt,sldt/qldt bulk density,kg/m3,bulk density
+442,rhob_sldt,sldt/qldt bulk density,kilogram per cubic meter,bulk density
 443,rhoi,enhanced resolution formation density,g/cm3,density porosity
 444,rhoi,enhanced resolution formation density,gram per cubic centimeter,density porosity
 445,rhoi,enhanced resolution formation density,kg/m3,density porosity
 446,rhoi,enhanced resolution formation density,kilogram per cubic meter,density porosity
-447,rhom,corrected bulk density,g/cm3,density porosity
-448,rhom,corrected bulk density,gram per cubic centimeter,density porosity
-449,rhom,corrected bulk density,kg/m3,density porosity
-450,rhom,corrected bulk density,kilogram per cubic meter,density porosity
-451,rhos,short spacing bulk density,g/cm3,density porosity
-452,rhos,short spacing bulk density,gram per cubic centimeter,density porosity
-453,rhos,short spacing bulk density,kg/m3,density porosity
-454,rhos,short spacing bulk density,kilogram per cubic meter,density porosity
+447,rhom,corrected bulk density,g/cm3,bulk density
+448,rhom,corrected bulk density,gram per cubic centimeter,bulk density
+449,rhom,corrected bulk density,kg/m3,bulk density
+450,rhom,corrected bulk density,kilogram per cubic meter,bulk density
+451,rhos,short spacing bulk density,g/cm3,bulk density
+452,rhos,short spacing bulk density,gram per cubic centimeter,bulk density
+453,rhos,short spacing bulk density,kg/m3,bulk density
+454,rhos,short spacing bulk density,kilogram per cubic meter,bulk density
 455,rhoz,standard resolution formation density,g/cm3,density porosity
 456,rhoz,standard resolution formation density,gram per cubic centimeter,density porosity
 457,rhoz,standard resolution formation density,kg/m3,density porosity
 458,rhoz,standard resolution formation density,kilogram per cubic meter,density porosity
-459,rhl,long-spaced bulk density,g/cm3,density porosity
-460,rhl,long-spaced bulk density,gram per cubic centimeter,density porosity
-461,rhl,long-spaced bulk density,kg/m3,density porosity
-462,rhl,long-spaced bulk density,kilogram per cubic meter,density porosity
-463,rhs3,short-spaced ss2 bulk density,g/cm3,density porosity
-464,rhs3,short-spaced ss2 bulk density,gram per cubic centimeter,density porosity
-465,rhs3,short-spaced ss2 bulk density,kg/m3,density porosity
-466,rhs3,short-spaced ss2 bulk density,kilogram per cubic meter,density porosity
-467,rhs4,short-spaced ss1 bulk density,g/cm3,density porosity
-468,rhs4,short-spaced ss1 bulk density,gram per cubic centimeter,density porosity
-469,rhs4,short-spaced ss1 bulk density,kg/m3,density porosity
-470,rhs4,short-spaced ss1 bulk density,kilogram per cubic meter,density porosity
+459,rhl,long-spaced bulk density,g/cm3,bulk density
+460,rhl,long-spaced bulk density,gram per cubic centimeter,bulk density
+461,rhl,long-spaced bulk density,kg/m3,bulk density
+462,rhl,long-spaced bulk density,kilogram per cubic meter,bulk density
+463,rhs3,short-spaced ss2 bulk density,g/cm3,bulk density
+464,rhs3,short-spaced ss2 bulk density,gram per cubic centimeter,bulk density
+465,rhs3,short-spaced ss2 bulk density,kg/m3,bulk density
+466,rhs3,short-spaced ss2 bulk density,kilogram per cubic meter,bulk density
+467,rhs4,short-spaced ss1 bulk density,g/cm3,bulk density
+468,rhs4,short-spaced ss1 bulk density,gram per cubic centimeter,bulk density
+469,rhs4,short-spaced ss1 bulk density,kg/m3,bulk density
+470,rhs4,short-spaced ss1 bulk density,kilogram per cubic meter,bulk density
 471,dphi_dol,density porosity (matrix dolomite),%,density porosity
 472,dphi_dol,density porosity (matrix dolomite),percent,density porosity
 473,dphi_dol,density porosity (matrix dolomite),ft3/ft3,density porosity

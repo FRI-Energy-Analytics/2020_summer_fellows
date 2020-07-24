@@ -190,7 +190,7 @@ class Dataset(object):
                 self.src_len = max(self.src_len, src_len)
                 self.tgt_len = max(self.tgt_len, tgt_len)
                 self.pairs.append(Example(src, tgt, src_len, tgt_len))
-        print("%d pairs." % len(self.pairs))
+        # print("%d pairs." % len(self.pairs))
 
     def build_vocab(
         self,
@@ -205,7 +205,7 @@ class Dataset(object):
         filename += ".vocab"
         if os.path.isfile(filename):
             vocab = torch.load(filename)
-            print("Vocabulary loaded, %d words." % len(vocab))
+            # print("Vocabulary loaded, %d words." % len(vocab))
         else:
             print("Building vocabulary...", end=" ", flush=True)
             vocab = Vocab()
@@ -215,11 +215,11 @@ class Dataset(object):
                 if tgt:
                     vocab.add_words(example.tgt)
             vocab.trim(vocab_size=vocab_size)
-            print("%d words." % len(vocab))
+            # print("%d words." % len(vocab))
             torch.save(vocab, filename)
         if embed_file:
             count = vocab.load_embeddings(embed_file)
-            print("%d pre-trained embeddings loaded." % count)
+            # print("%d pre-trained embeddings loaded." % count)
         return vocab
 
     def generator(

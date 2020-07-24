@@ -2,10 +2,8 @@ import os.path
 import gzip
 import pandas as pd
 import lasio
-from .predict_from_model import make_prediction
-import pkg_resources
+from predict_from_model import make_prediction
 
-DATA_PATH = pkg_resources.resource_filename(__name__, 'data/')
 
 class Node:
     def __init__(self, key):
@@ -21,7 +19,7 @@ def make_tree():
     """
     root = Node(None)
     df = (
-        pd.read_csv(DATA_PATH+"original_lowered.csv")
+        pd.read_csv("data/original_lowered.csv")
         .drop("Unnamed: 0", 1)
         .reset_index(drop=True)
     )
@@ -83,6 +81,8 @@ def make_tree():
         st = "density " + str(i)
         root.child[j].child[k].child.append(Node(st))
         k += 1
+    root.child[j].child.append(Node("bulk"))
+    root.child[j].child[k].child.append(Node("bulk density"))
     root.child.append(Node("porosity"))
     j += 1
     k = 0
@@ -148,7 +148,6 @@ def make_tree():
         k += 1
     return root
 
-
 def search(tree, description):
     """
     :param tree: m-ary keyword extractor tree
@@ -194,9 +193,10 @@ class Alias:
     """
 
     # Constructor
-    def __init__(self, dictionary=True, keyword_extractor=True, model=True):
+    def __init__(self, dictionary=True, keyword_extractor=True, model=True, prob_cutoff=.5):
         self.dictionary = dictionary
         self.keyword_extractor = keyword_extractor
+        self.prob_cutoff = prob_cutoff
         self.model = model
         self.duplicate, self.not_found = [], []
         self.output = {}
@@ -215,6 +215,7 @@ class Alias:
                 desc.append("None")
             else:
                 desc.append(str(las.curves[key].descr).lower())
+        print("Reading {} mnemonics...".format(len(mnem)))
         if self.dictionary is True:
             self.dictionary_parse(mnem)
         if self.keyword_extractor is True:
@@ -222,7 +223,10 @@ class Alias:
         if self.model is True:
             df = self.make_df(path)
             self.model_parse(df)
-        return self.output, self.not_found
+        formatted_output = {}
+        for key, val in self.output.items():  
+            formatted_output.setdefault(val, []).append(key.upper()) 
+        return formatted_output, self.not_found
 
     def dictionary_parse(self, mnem):
         """
@@ -231,10 +235,11 @@ class Alias:
         Find exact matches of mnemonics in mnemonic dictionary
         """
         df = (
-            pd.read_csv(DATA_PATH+"comprehensive_dictionary.csv")
+            pd.read_csv("data/comprehensive_dictionary.csv")
             .drop("Unnamed: 0", 1)
             .reset_index(drop=True)
         )
+        print("Alasing with dictionary...")
         dic = df.apply(lambda x: x.astype(str).str.lower())
         index = 0
         for i in mnem:
@@ -243,6 +248,8 @@ class Alias:
                 self.output[i] = key
                 self.duplicate.append(index)
             index += 1
+        print("Aliased {} mnemonics with dictionary".format(index-1))
+        
 
     def keyword_parse(self, mnem, desc):
         """
@@ -255,6 +262,7 @@ class Alias:
         new_desc = [v for i, v in enumerate(desc) if i not in self.duplicate]
         new_mnem = [v for i, v in enumerate(mnem) if i not in self.duplicate]
         index = 0
+        print("Alasing with keyword extractor...")
         for i in new_desc:
             key = search(Tree, i)
             if key == None:
@@ -262,6 +270,7 @@ class Alias:
             else:
                 self.output[new_mnem[index]] = key
             index += 1
+        print("Aliased {} mnemonics with keyword extractor".format(index-1))
 
     def model_parse(self, df):
         """
@@ -269,9 +278,15 @@ class Alias:
         :return: None
         Make predictions using pointer generator
         """
+        print("Alasing with pointer generator...")
         path = self.build_test(df)
-        new_dictionary = make_prediction(path)
-        self.output.update(new_dictionary)
+        new_dictionary, predicted_prob = make_prediction(path)
+        for key, value in predicted_prob.items():
+            if float(value) >= self.prob_cutoff:
+                self.output[key]=new_dictionary[key]
+            else:
+                self.not_found.append(key)
+        print("Aliased {} mnemonics with pointer generator".format(len(predicted_prob)))
 
     def build_test(self, df):
         """
@@ -279,7 +294,7 @@ class Alias:
         :return: compressed file of summaries used to generate labels
         Build input file for pointer generator
         """
-        data_path = DATA_PATH
+        data_path = "data/"
         test_out = gzip.open(os.path.join(data_path, "input.gz"), "wt")
         for i in range(len(df)):
             fout = test_out

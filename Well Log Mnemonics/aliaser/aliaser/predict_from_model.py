@@ -171,10 +171,10 @@ def eval_bs(test_set: Dataset, vocab: Vocab, model: Seq2Seq, params: Params):
 
 def make_prediction(test_path):
     """
-  :param test_path: path to LAS file
-  :return: dictionary of mnemonic and label
-  Make predictions using pointer generator
-  """
+    :param test_path: path to LAS file
+    :return: dictionary of mnemonic and label
+    Make predictions using pointer generator
+    """
     p = Params()
     dataset = Dataset(
         p.data_path,
@@ -190,5 +190,5 @@ def make_prediction(test_path):
     m.decoder.gru.flatten_parameters()
 
     d = Dataset(test_path)
-    output = eval_bs(d, v, m, p)
-    return output
+    output, prob_output = eval_bs(d, v, m, p)
+    return output, prob_output

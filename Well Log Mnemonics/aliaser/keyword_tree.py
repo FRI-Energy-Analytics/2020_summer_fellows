@@ -222,7 +222,10 @@ class Alias:
         if self.model is True:
             df = self.make_df(path)
             self.model_parse(df)
-        return self.output, self.not_found
+        formatted_output = {}
+        for key, val in self.output.items():  
+            formatted_output.setdefault(val, []).append(key.upper()) 
+        return formatted_output, self.not_found
 
     def dictionary_parse(self, mnem):
         """
