@@ -15,7 +15,7 @@ from torchvision import datasets
 from torch.autograd import Variable
 
 from models import *
-from datasets import *
+from datasets_loader import *
 
 import torch.nn as nn
 import torch.nn.functional as F
@@ -87,10 +87,9 @@ Tensor = torch.cuda.FloatTensor if cuda else torch.FloatTensor
 def sample_images(batches_done, imgs):
     """Saves a generated sample from the validation set"""
     real_A = Variable(imgs["B"].type(Tensor))
-    real_B = Variable(imgs["A"].type(Tensor))
     fake_B = generator(real_A)
-    img_sample = torch.cat((real_A.data, fake_B.data, real_B.data), -2)
-    save_image(img_sample, "%s/%s.png" % (opt.save_path, batches_done), nrow=5, normalize=True)
+    img_sample = torch.cat((real_A.data, fake_B.data), -2)
+    save_image(img_sample, "%s/%s.png" % (opt.save_path, batches_done), nrow=2, normalize=True)
 
 # ----------
 #  Training
