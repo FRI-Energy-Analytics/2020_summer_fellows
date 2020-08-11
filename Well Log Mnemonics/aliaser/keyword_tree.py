@@ -1,6 +1,8 @@
 import os.path
 import gzip
 import pandas as pd
+import seaborn as sns; sns.set()
+import matplotlib.pyplot as plt
 import lasio
 from predict_from_model import make_prediction
 
@@ -199,6 +201,7 @@ class Alias:
         self.prob_cutoff = prob_cutoff
         self.model = model
         self.duplicate, self.not_found = [], []
+        self.method, self.probability, self.mnem = [], [], []
         self.output = {}
 
     def parse(self, path):
@@ -215,6 +218,7 @@ class Alias:
                 desc.append("None")
             else:
                 desc.append(str(las.curves[key].descr).lower())
+        print("Reading {} mnemonics...".format(len(mnem)))
         if self.dictionary is True:
             self.dictionary_parse(mnem)
         if self.keyword_extractor is True:
@@ -227,6 +231,52 @@ class Alias:
             formatted_output.setdefault(val, []).append(key.upper()) 
         return formatted_output, self.not_found
 
+    def parse_directory(self, directory):
+        """
+        :param path: path to directory containing LAS files
+        :return: one dictionary containing mnemonics and labels, one list containing mnemonics that can't be aliased
+        Parses LAS files and call parsers accordingly
+        """
+        comprehensive_dict = {}
+        comprehensive_not_found = []
+        for filename in os.listdir(directory):
+            if filename.endswith(".las"):
+                path = os.path.join(directory, filename)
+                las = lasio.read(path)
+                mnem, desc = [], []
+                for key in las.keys():
+                    mnem.append(key.lower())
+                    if str(las.curves[key].descr) == "" and str(las.curves[key].value) == "":
+                        desc.append("None")
+                    else:
+                        desc.append(str(las.curves[key].descr).lower())
+                print("Reading {} mnemonics from {}...".format(len(mnem),filename))
+                if self.dictionary is True:
+                    self.dictionary_parse(mnem)
+                if self.keyword_extractor is True:
+                    self.keyword_parse(mnem, desc)
+                if self.model is True:
+                    df = self.make_df(path)
+                    self.model_parse(df)
+                comprehensive_dict.update(self.output)
+                comprehensive_not_found.extend(self.not_found)
+                self.output = {}
+                self.duplicate, self.not_found = [], []
+        formatted_output = {}
+        for key, val in comprehensive_dict.items():  
+            formatted_output.setdefault(val, []).append(key.upper()) 
+        return formatted_output, comprehensive_not_found
+
+    def heatmap(self):
+        df = pd.DataFrame(
+            {'method': self.method,
+            'mnem': self.mnem,
+            'prob': self.probability
+            })
+        result = df.pivot(index='method',columns='mnem',values='prob')
+        fig = sns.heatmap(result)
+        return fig
+
     def dictionary_parse(self, mnem):
         """
         :param mnem: list of mnemonics
@@ -238,6 +288,7 @@ class Alias:
             .drop("Unnamed: 0", 1)
             .reset_index(drop=True)
         )
+        print("Alasing with dictionary...")
         dic = df.apply(lambda x: x.astype(str).str.lower())
         index = 0
         for i in mnem:
@@ -245,7 +296,11 @@ class Alias:
                 key = dic.loc[dic["mnemonics"] == i, "label"].iloc[0]  # can be reduced?
                 self.output[i] = key
                 self.duplicate.append(index)
+                self.mnem.append(i)
+                self.probability.append(1)
+                self.method.append("dictionary")
             index += 1
+        print("Aliased {} mnemonics with dictionary".format(index-1))
 
     def keyword_parse(self, mnem, desc):
         """
@@ -258,13 +313,18 @@ class Alias:
         new_desc = [v for i, v in enumerate(desc) if i not in self.duplicate]
         new_mnem = [v for i, v in enumerate(mnem) if i not in self.duplicate]
         index = 0
+        print("Alasing with keyword extractor...")
         for i in new_desc:
             key = search(Tree, i)
             if key == None:
                 self.not_found.append(new_mnem[index])
             else:
                 self.output[new_mnem[index]] = key
+                self.mnem.append(new_mnem[index])
+                self.probability.append(1)
+                self.method.append("keyword")
             index += 1
+        print("Aliased {} mnemonics with keyword extractor".format(index-1))
 
     def model_parse(self, df):
         """
@@ -272,13 +332,18 @@ class Alias:
         :return: None
         Make predictions using pointer generator
         """
+        print("Alasing with pointer generator...")
         path = self.build_test(df)
         new_dictionary, predicted_prob = make_prediction(path)
         for key, value in predicted_prob.items():
             if float(value) >= self.prob_cutoff:
                 self.output[key]=new_dictionary[key]
+                self.mnem.append(key)
+                self.probability.append(float(value))
+                self.method.append("model")
             else:
                 self.not_found.append(key)
+        print("Aliased {} mnemonics with pointer generator".format(len(predicted_prob)))
 
     def build_test(self, df):
         """
